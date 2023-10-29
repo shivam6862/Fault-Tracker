@@ -1,0 +1,7 @@
+.container {
+  display: flex;
+}
+.box {
+  display: flex;
+  color: var(--white-color);
+}
