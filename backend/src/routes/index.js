@@ -6,6 +6,9 @@ const insertnewPasswordRoutes = require("../routes/auth/insertnewPasswordRoutes"
 const productRoutes = require("../routes/generalAssembly/productRoutes");
 const rawMaterialRoutes = require("../routes/generalAssembly/rawMaterialRoutes");
 const supplierRoutes = require("../routes/generalAssembly/supplierRoutes");
+const manufacturerCenterRoutes = require("./manufacturerCenter/insertmanufacturerCenterRoutes");
+const insertdistributionCenterRoutes = require("../routes/distributionCenter/insertdistributionCenterRoutes");
+const shipmentsRoutes = require("../routes/distributionCenter/shipmentsRoutes");
 
 module.exports = routes = [
   insertSignUpRoute,
@@ -16,4 +19,7 @@ module.exports = routes = [
   supplierRoutes,
   rawMaterialRoutes,
   productRoutes,
+  manufacturerCenterRoutes,
+  insertdistributionCenterRoutes,
+  shipmentsRoutes,
 ];
