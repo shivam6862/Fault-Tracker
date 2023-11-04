@@ -3,12 +3,15 @@ const getSigninRoute = require("../routes/auth/getSigninRoute");
 const resetPasswordRoutes = require("../routes/auth/resetPasswordRoutes");
 const getNewPasswordRoutes = require("../routes/auth/getNewPasswordRoutes");
 const insertnewPasswordRoutes = require("../routes/auth/insertnewPasswordRoutes");
-const productRoutes = require("../routes/generalAssembly/productRoutes");
+const generalassemblyproductRoutes = require("../routes/generalAssembly/productRoutes");
 const rawMaterialRoutes = require("../routes/generalAssembly/rawMaterialRoutes");
 const supplierRoutes = require("../routes/generalAssembly/supplierRoutes");
 const manufacturerCenterRoutes = require("./manufacturerCenter/insertmanufacturerCenterRoutes");
 const insertdistributionCenterRoutes = require("../routes/distributionCenter/insertdistributionCenterRoutes");
 const shipmentsRoutes = require("../routes/distributionCenter/shipmentsRoutes");
+const customerRoutes = require("../routes/retailStore/customerRoutes");
+const orderRoutes = require("../routes/retailStore/orderRoutes");
+const retailstoreproductRoutes = require("../routes/retailStore/productRoutes");
 
 module.exports = routes = [
   insertSignUpRoute,
@@ -18,8 +21,11 @@ module.exports = routes = [
   insertnewPasswordRoutes,
   supplierRoutes,
   rawMaterialRoutes,
-  productRoutes,
+  generalassemblyproductRoutes,
   manufacturerCenterRoutes,
   insertdistributionCenterRoutes,
   shipmentsRoutes,
+  customerRoutes,
+  orderRoutes,
+  retailstoreproductRoutes,
 ];
