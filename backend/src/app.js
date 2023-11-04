@@ -1,5 +1,6 @@
 const express = require("express");
 const routes = require("./routes");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -27,10 +28,13 @@ app.use((req, res, next) => {
 
 routes.forEach((route) => app[route.method](route.path, route.handler));
 
-const start = async () => {
-  app.listen(8080, () => {
-    console.log("Server is listening on Port 8080");
+mongoose.set("strictQuery", false);
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then((result) => {
+    app.listen(8080);
+    console.log("Connected to 8080!");
+  })
+  .catch((err) => {
+    console.log(err);
   });
-};
-
-start();
