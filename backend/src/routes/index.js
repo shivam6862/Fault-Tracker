@@ -12,6 +12,8 @@ const shipmentsRoutes = require("../routes/distributionCenter/shipmentsRoutes");
 const customerRoutes = require("../routes/retailStore/customerRoutes");
 const orderRoutes = require("../routes/retailStore/orderRoutes");
 const retailstoreproductRoutes = require("../routes/retailStore/productRoutes");
+const customerClaimRoutes = require("../routes/defects/customerClaimRoutes");
+const defectsRoutes = require("../routes/defects/defectsRoutes");
 
 module.exports = routes = [
   insertSignUpRoute,
@@ -28,4 +30,6 @@ module.exports = routes = [
   customerRoutes,
   orderRoutes,
   retailstoreproductRoutes,
+  customerClaimRoutes,
+  defectsRoutes,
 ];
