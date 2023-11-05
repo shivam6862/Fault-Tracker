@@ -3,13 +3,23 @@
   margin: 0;
   padding: 0;
 }
-body {
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--bg-primary);
-  max-width: 1800px;
-  margin: auto;
 }
+
+body {
+  background: #000;
+}
+
 a {
   display: block;
   text-decoration: none;
@@ -23,7 +33,7 @@ a {
   --black-color: #000000;
   --white-color: #ffffff;
 
-  --bg-primary: #010314;
+  --bg-primary: #fff;
   --paragraph: #77798f;
 
   --b-pad: 4rem;
@@ -48,4 +58,29 @@ a {
   );
   --border-buttom-color: #4467ff;
   --box-shadow-color: #74f;
+}
+
+.spin {
+  position: relative;
+}
+.spin {
+  animation: 1.5s linear infinite spinner;
+  animation-play-state: inherit;
+  border: solid 5px #cfd0d1;
+  border-bottom-color: #1c87c9;
+  border-radius: 50%;
+  content: "";
+  height: 30px;
+  width: 30px;
+  margin: 0 2rem;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

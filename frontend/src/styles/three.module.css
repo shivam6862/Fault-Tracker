@@ -1,0 +1,22 @@
+.form > label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #333;
+  border: 1px solid black;
+  /* border-radius: 4px; */
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-align: center;
+}
+.html-content > h1 {
+  margin-bottom: 2rem;
+}
+.form input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
