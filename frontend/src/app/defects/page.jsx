@@ -1,27 +1,29 @@
 "use client";
 import classes from "@/styles/Defects.module.css";
 import DefectsItem from "@/components/DefectsItem";
+import { useProtectedGetData } from "@/hook/useProtectedGetData";
 
 const defects = () => {
+  const { isLoading, data: defectsData } = useProtectedGetData(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/defects`,
+    { response: [] }
+  );
+
   return (
     <div className={classes.container}>
       <div className={classes.box}>
-        <DefectsItem
-          title={"title"}
-          channel={"channel"}
-          views={"views"}
-          timestamp={"timestamp"}
-          thumbnail={"/error.jpg"}
-          videoLink={"/product/123"}
-        />
-        <DefectsItem
-          title={"title"}
-          channel={"channel"}
-          views={"views"}
-          timestamp={"timestamp"}
-          thumbnail={"/error.jpg"}
-          videoLink={"/product/12345"}
-        />
+        {defectsData.response.map((item) => (
+          <DefectsItem
+            productID={`/product/${item.productID}`}
+            description={item.description}
+            defectType={item.defectType}
+            reportedBy={item.reportedBy}
+            status={item.status}
+            dateReported={item.dateReported}
+            thumbnail={"/error.jpg"}
+            key={item.productID}
+          />
+        ))}
       </div>
     </div>
   );

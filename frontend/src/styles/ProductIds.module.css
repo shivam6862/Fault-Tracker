@@ -3,5 +3,6 @@
 }
 .box {
   display: flex;
+  flex-direction: column;
   color: var(--white-color);
 }

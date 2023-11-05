@@ -5,57 +5,44 @@
   all: unset;
   cursor: pointer;
 }
-.videocard {
+.defectCard {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 1rem;
   padding: 2rem 1.5rem;
   background: var(--black-color);
   border-radius: var(--ft-300);
+  align-items: center;
+  justify-content: center;
 }
-.videocard:hover {
+.defectCard:hover {
   border-radius: 10px;
   box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
 }
-.firstpart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.firstpart > svg {
-  color: var(--white-color);
-  width: 20px;
-}
-.videocard_imgBox {
+.defectCard_imgBox {
   display: flex;
   position: relative;
   padding: 0;
-  height: 150px;
+  height: 250px;
 }
-.videocard_imgBox > img {
-  height: 150px;
-  width: 225px;
+.defectCard_imgBox > img {
+  height: 250px;
+  width: 375px;
   border-radius: var(--ft-300);
 }
-.videocard_imgBox > img:hover {
+.defectCard_imgBox > img:hover {
   border-radius: 0px;
 }
-.videocard_info {
+.defectCard_info {
   display: flex;
   gap: 1rem;
-  margin-top: 0.7em;
+  width: -webkit-fill-available;
 }
-.videocard_text {
+.defectCard_text {
   display: flex;
   flex-direction: column;
 }
-.viewsAndTime {
-  display: flex;
-  gap: 0.4em;
-  flex-wrap: wrap;
-}
-.videocard_text > h5 {
+.defectCard_text > h5 {
   font-size: var(--ft-400);
   text-transform: capitalize;
   margin: 0;
@@ -68,10 +55,17 @@
   text-overflow: ellipsis;
   max-width: 200px;
   color: var(--white-color);
+  text-transform: capitalize;
+}
+.viewsAndTime {
+  display: flex;
+  gap: 0.4em;
+  flex-direction: column;
 }
 .viewsAndTime > p {
   font-size: small;
   color: var(--white-color);
   margin: 0;
   margin-bottom: 0.3em;
+  text-transform: capitalize;
 }
