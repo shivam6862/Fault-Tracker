@@ -51,6 +51,12 @@ const productSchema = new mongoose.Schema({
       ref: "RawMaterial",
     },
   ],
+  subProductIDs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+  ],
 });
 
 const Product = mongoose.model("Product", productSchema);

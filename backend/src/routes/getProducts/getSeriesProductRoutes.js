@@ -10,7 +10,7 @@ module.exports = getSeriesProductRoutes = {
       if (response.length === 0) {
         return res.status(400).send({
           message: "Products Not Found for the given series ID!",
-          response: response,
+          response: {},
         });
       }
       return res.status(200).send({
@@ -20,7 +20,7 @@ module.exports = getSeriesProductRoutes = {
     } catch (err) {
       return res.status(400).send({
         message: "Error fetching products for the given series ID!",
-        response: err.message,
+        response: {},
       });
     }
   },
