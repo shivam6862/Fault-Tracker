@@ -41,6 +41,10 @@ const productSchema = new mongoose.Schema({
   machineIdentifier: {
     type: String,
   },
+  supplierID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Supplier",
+  },
   materialIDs: [
     {
       type: mongoose.Schema.Types.ObjectId,
