@@ -8,11 +8,23 @@ module.exports = getRawMaterialAndProductsController = async (searchQuery) => {
     const products = await Product.find(
       { productName: { $regex: regex } },
       { productName: 1, productID: 1, supplierID: 1, _id: 0 }
-    ).limit(5);
+    )
+      .populate({
+        path: "supplierID",
+        model: "Supplier",
+        select: "supplierName -_id",
+      })
+      .limit(5);
     const rawMaterials = await RawMaterial.find(
       { materialName: { $regex: regex } },
       { materialName: 1, materialID: 1, supplierID: 1, _id: 0 }
-    ).limit(5);
+    )
+      .populate({
+        path: "supplierID",
+        model: "Supplier",
+        select: "supplierName -_id",
+      })
+      .limit(5);
     return { products: products, rawMaterials: rawMaterials };
   } catch (err) {
     console.log(err.message);

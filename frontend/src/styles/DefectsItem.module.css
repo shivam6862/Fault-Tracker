@@ -1,0 +1,77 @@
+.container {
+  display: flex;
+}
+.container > a {
+  all: unset;
+  cursor: pointer;
+}
+.videocard {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  background: var(--black-color);
+  border-radius: var(--ft-300);
+}
+.videocard:hover {
+  border-radius: 10px;
+  box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+}
+.firstpart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.firstpart > svg {
+  color: var(--white-color);
+  width: 20px;
+}
+.videocard_imgBox {
+  display: flex;
+  position: relative;
+  padding: 0;
+  height: 150px;
+}
+.videocard_imgBox > img {
+  height: 150px;
+  width: 225px;
+  border-radius: var(--ft-300);
+}
+.videocard_imgBox > img:hover {
+  border-radius: 0px;
+}
+.videocard_info {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.7em;
+}
+.videocard_text {
+  display: flex;
+  flex-direction: column;
+}
+.viewsAndTime {
+  display: flex;
+  gap: 0.4em;
+  flex-wrap: wrap;
+}
+.videocard_text > h5 {
+  font-size: var(--ft-400);
+  text-transform: capitalize;
+  margin: 0;
+  margin-bottom: 0.4rem;
+  line-height: 1.3rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  color: var(--white-color);
+}
+.viewsAndTime > p {
+  font-size: small;
+  color: var(--white-color);
+  margin: 0;
+  margin-bottom: 0.3em;
+}

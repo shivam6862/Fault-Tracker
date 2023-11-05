@@ -7,7 +7,13 @@ module.exports = productsController = async (searchQuery) => {
     const products = await Product.find(
       { productName: { $regex: regex } },
       { productName: 1, productID: 1, supplierID: 1, _id: 0 }
-    ).limit(5);
+    )
+      .populate({
+        path: "supplierID",
+        model: "Supplier",
+        select: "supplierName -_id",
+      })
+      .limit(5);
     return products;
   } catch (err) {
     console.log(err.message);
