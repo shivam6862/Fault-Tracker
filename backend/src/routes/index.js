@@ -14,6 +14,10 @@ const orderRoutes = require("../routes/retailStore/orderRoutes");
 const retailstoreproductRoutes = require("../routes/retailStore/productRoutes");
 const customerClaimRoutes = require("../routes/defects/customerClaimRoutes");
 const defectsRoutes = require("../routes/defects/defectsRoutes");
+const getProductsRoutes = require("../routes/getProducts/getProductsRoutes");
+const getRawMaterialAndProductsRoutes = require("../routes/getProducts/getRawMaterialAndProductsRoutes");
+const getSeriesProduct = require("../routes/getProducts/getSeriesProductRoutes");
+const getUserRoutes = require("../routes/getUserRoutes");
 
 module.exports = routes = [
   insertSignUpRoute,
@@ -32,4 +36,8 @@ module.exports = routes = [
   retailstoreproductRoutes,
   customerClaimRoutes,
   defectsRoutes,
+  getProductsRoutes,
+  getRawMaterialAndProductsRoutes,
+  getSeriesProduct,
+  getUserRoutes,
 ];
