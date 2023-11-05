@@ -2,19 +2,81 @@
 import { useState } from "react";
 import classes from "@/styles/rawMaterialForm.module.css";
 import Header from "./Header";
-const ProductFromRawMaterial = ({ onCancel }) => {
+import useSmallSearch from "@/hook/useSmallSearch";
+import { usePostData } from "@/hook/usePostData";
+const ProductFromRawMaterial = ({ state, onCancel }) => {
+  const { smallSearch } = useSmallSearch();
   const [product, setProduct] = useState({
     name: "",
     description: "",
     price: "",
     quantity: "",
+    size: "",
+    type: "",
+    weight: "",
+    warranty: "",
+    machineIdentifier: "",
   });
+  const [availabelRawMaterials, setAvailableRawMaterials] = useState([]);
+  const [selectedRawMaterials, setRawMaterials] = useState([]);
+  const { postData } = usePostData();
 
   const handleProjectChange = (name) => (event) => {
     setProduct({ ...product, [name]: event.target.value });
   };
   const onSubmit = () => {
-    return;
+    if (
+      !product.name ||
+      !product.description ||
+      !product.price ||
+      !product.quantity ||
+      !product.size ||
+      !product.type ||
+      !product.weight ||
+      !product.warranty ||
+      !product.machineIdentifier ||
+      !state.wallet
+    )
+      return;
+    const materialArray = selectedRawMaterials.filter(
+      (material) => material.materialID
+    );
+    const productArray = selectedRawMaterials.filter(
+      (material) => material.productID
+    );
+
+    const bodyData = {
+      productName: product.name,
+      productDescription: product.description,
+      price: product.price,
+      quantity: product.quantity,
+      size: product.size,
+      type: product.type,
+      weight: product.weight,
+      warrantyPeriod: product.warranty,
+      machineIdentifier: product.machineIdentifier,
+      supplierID: state.wallet,
+      materialIDs: materialArray,
+      subProductIds: productArray,
+    };
+    postData(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/generalassembly/product`,
+      bodyData
+    );
+  };
+  const handleChangeRawMaterial = async (event) => {
+    if (!event.target.value) {
+      setAvailableRawMaterials([]);
+      return;
+    }
+    const searchData = await smallSearch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/rawMaterials/${event.target.value}`
+    );
+    console.log(searchData);
+    setAvailableRawMaterials([
+      ...searchData.response.products,
+      ...searchData.response.rawMaterials,
+    ]);
   };
 
   return (
@@ -49,7 +111,62 @@ const ProductFromRawMaterial = ({ onCancel }) => {
                 />
               </div>
               <div
-                style={{ flex: "1 1 400px" }}
+                style={{ flex: "1 1 1000px" }}
+                className={classes["search-container"]}
+              >
+                <div className={classes["input-field-container"]}>
+                  <ul className={classes["selected-raw-materials"]}>
+                    {selectedRawMaterials.map((material, index) => (
+                      <li
+                        key={material.productID || material.materialID}
+                        style={{ listStyle: "none" }}
+                      >
+                        {material.productName || material.materialName} (
+                        {material.supplierID})
+                        <button
+                          onClick={() => {
+                            const newSelectedRawMaterials = [
+                              ...selectedRawMaterials,
+                            ];
+                            newSelectedRawMaterials.splice(index, 1);
+                            setRawMaterials(newSelectedRawMaterials);
+                          }}
+                          style={{ float: "right" }}
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <label style={{ marginTop: "1rem" }} htmlFor="quantity">
+                    Raw Materials Used
+                  </label>
+                  <input
+                    type="text"
+                    id="quantity"
+                    placeholder="Raw Material"
+                    onChange={(event) => {
+                      handleChangeRawMaterial(event);
+                    }}
+                  />
+                </div>
+                <ul className={classes["available-raw-materials"]}>
+                  {availabelRawMaterials.map((material) => (
+                    <li
+                      key={material.productID || material.materialID}
+                      onClick={() => {
+                        setRawMaterials([...selectedRawMaterials, material]);
+                        setAvailableRawMaterials([]);
+                      }}
+                    >
+                      {material.productName || material.materialName} (
+                      {material.supplierID})
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div
+                style={{ flex: "1 1 1000px" }}
                 className={classes["input-field-container"]}
               >
                 <label htmlFor="name">Quantity</label>

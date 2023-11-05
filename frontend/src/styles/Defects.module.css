@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  width: -webkit-fill-available;
+}
+.box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+  width: -webkit-fill-available;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 1020px) {
+}

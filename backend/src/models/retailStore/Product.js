@@ -25,9 +25,8 @@ const retailStoreProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  manufacturerID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Manufacturer",
+  retailerID: {
+    type: String,
     required: true,
   },
 });

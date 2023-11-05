@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNotification } from "./useNotification";
 
-export const useProtectedGetData = (url, defaultValue) => {
+export const useGetData = (url, defaultValue) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(defaultValue);
   const { NotificationHandler } = useNotification();

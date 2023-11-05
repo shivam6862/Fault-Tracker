@@ -7,10 +7,13 @@ import { TextureLoader, Vector3 } from "three";
 import classes from "@/styles/three.module.css";
 import RawMaterialForm from "@/components/RawMaterialForm";
 import ProductFromRawMaterial from "@/components/ProductFromRawMaterial";
+import { useMetamask } from "@/utils/useMetamask";
+import ProductToRetailer from "@/components/ProductToSell";
+import Defect from "@/components/Defect";
 
-const boxSize = [5.5, 5.5, 5.5];
+const boxSize = [6, 6, 6];
 
-function Box() {
+function Box({ state }) {
   const meshRef = useRef();
   const [size, set] = useState(0.5);
   const [selectedOption, setSelectedOption] = useState("");
@@ -21,12 +24,15 @@ function Box() {
     setSelectedOption(event.target.value);
   };
 
-  const onCancelRawMaterial = () => {
-    setSelectedOption("leftToFront");
+  const resetRotation = () => {
+    setSelectedOption("front");
   };
-  const onCancelProductFromRawMaterial = () => {
-    setSelectedOption("rightToFront");
-  };
+  // const onCancelProductFromRawMaterial = () => {
+  //   setSelectedOption("front");
+  // };
+  // const cancelProductToRetailer = () => {
+  //   setSelectedOption("front");
+  // };
 
   // useFrame(() => {
   //   if (meshRef.current) {
@@ -59,17 +65,20 @@ function Box() {
           targetRotation.current.set(0, -Math.PI / 2, 0); // Rotate to right face
           break;
         case "sell":
-          targetRotation.current.set(-Math.PI / 2, 0, 0); // Rotate to top face
+          targetRotation.current.set(-Math.PI / 2, 0, 0); // Rotate to bottom face
           break;
         case "defect":
-          targetRotation.current.set(Math.PI / 2, 0, 0); // Rotate to bottom face
+          targetRotation.current.set(Math.PI / 2, 0, 0); // Rotate to top face
           break;
-        case "leftToFront":
+        case "front":
           targetRotation.current.set(0, 0, 0); // Reset rotation
           break;
-        case "rightToFront":
-          targetRotation.current.set(0, 0, 0); // Reset rotation
-          break;
+        // case "rightToFront":
+        //   targetRotation.current.set(0, 0, 0); // Reset rotation
+        //   break;
+        // case "rightToFront":
+        //   targetRotation.current.set(0, 0, 0); // Reset rotation
+        //   break;
         default:
           targetRotation.current.set(0, 0, 0); // Reset rotation
           break;
@@ -155,7 +164,7 @@ function Box() {
     new THREE.MeshBasicMaterial({ color: "orange" }),
   ];
   return (
-    <mesh ref={meshRef} scale={1}>
+    <mesh ref={meshRef}>
       <boxGeometry args={boxSize} />
       {/* <meshStandardMaterial /> */}
       {materials.map((material, index) => (
@@ -166,7 +175,7 @@ function Box() {
         />
       ))}
       <Html
-        scale={1}
+        scale={2}
         occlude
         distanceFactor={1.5}
         position={[0, 0, boxSize[2] / 2 + 0.01]}
@@ -218,44 +227,54 @@ function Box() {
         </div>
       </Html>
       <Html
-        scale={1}
+        // scale={1}
         occlude
-        distanceFactor={1.5}
+        distanceFactor={1}
         position={[-(boxSize[0] / 2 + 0.01), 0, 0]}
         transform
         rotation={[0, (Math.PI * 3) / 2, 0]}
       >
-        <RawMaterialForm onCancel={onCancelRawMaterial} />
+        <RawMaterialForm state={state} onCancel={resetRotation} />
       </Html>
       <Html
-        scale={[0.7, 1, 1]}
+        // scale={[0.8, 1.3, 1]}
         occlude
-        distanceFactor={1.5}
+        distanceFactor={1}
         position={[boxSize[2] / 2 + 0.01, 0, 0]}
         transform
         rotation={[0, Math.PI / 2, 0]}
+        style={{
+          // maxHeight: "1200px",
+          width: "100%",
+          // display: "flex",
+          // alignItems: "center",
+          // justifyContent: "center",
+          overflow: "scroll",
+        }}
       >
-        <ProductFromRawMaterial onCancel={onCancelProductFromRawMaterial} />
+        <ProductFromRawMaterial state={state} onCancel={resetRotation} />
       </Html>
+
       <Html
-        scale={[0.5, 0.5, 0.5]}
+        scale={1.5}
         occlude
-        distanceFactor={1.5}
+        distanceFactor={1}
         position={[0, boxSize[1] / 2 + 0.01, 0]}
         transform
         rotation={[(Math.PI * 3) / 2, 0, 0]}
       >
-        <h1>top face</h1>
+        {/* <ProductToRetailer state={state} onCancel={resetRotation} /> */}
+        <Defect state={state} onCancel={resetRotation} />
       </Html>
       <Html
-        scale={[0.5, 0.5, 0.5]}
+        scale={1}
         occlude
-        distanceFactor={1.5}
+        distanceFactor={1}
         position={[0, -(boxSize[1] / 2 + 0.01), 0]}
         transform
         rotation={[Math.PI / 2, 0, 0]}
       >
-        <h1>bottom face</h1>
+        <ProductToRetailer state={state} onCancel={resetRotation} />
       </Html>
       <Html
         scale={[0.5, 0.5, 0.5]}
@@ -272,13 +291,14 @@ function Box() {
 }
 
 export default function App() {
+  const { state } = useMetamask();
   return (
-    <Canvas camera={{ position: [0, 0, 10], fov: 25 }}>
+    <Canvas camera={{ position: [0, 0, 20], fov: 25 }}>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <pointLight position={[-10, -10, -10]} />
-      <Box />
-      <OrbitControls makeDefault />
+      <Box state={state} />
+      {/* <OrbitControls makeDefault /> */}
     </Canvas>
   );
 }

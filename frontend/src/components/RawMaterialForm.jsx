@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
 import classes from "@/styles/rawMaterialForm.module.css";
-import Header from "./Header";
-const RawMaterialForm = ({ onCancel }) => {
-  const traits = "Test Hack";
+import { usePostData } from "@/hook/usePostData";
+const RawMaterialForm = ({ state, onCancel }) => {
   const [material, setMaterial] = useState({
     name: "",
     unitPrice: "",
@@ -13,8 +12,18 @@ const RawMaterialForm = ({ onCancel }) => {
   const handleProjectChange = (name) => (event) => {
     setMaterial({ ...material, [name]: event.target.value });
   };
+  const { postData } = usePostData();
   const onSubmit = () => {
-    return;
+    const bodyData = {
+      name: material.name,
+      unitPrice: material.unitPrice,
+      quantity: material.quantity,
+      supplierID: state.wallet,
+    };
+    postData(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/generalassembly/rawmaterial`,
+      bodyData
+    );
   };
 
   return (

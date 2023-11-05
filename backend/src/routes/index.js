@@ -18,6 +18,7 @@ const getProductsRoutes = require("../routes/getProducts/getProductsRoutes");
 const getRawMaterialAndProductsRoutes = require("../routes/getProducts/getRawMaterialAndProductsRoutes");
 const getSeriesProduct = require("../routes/getProducts/getSeriesProductRoutes");
 const getUserRoutes = require("../routes/getUserRoutes");
+const getDefectsRoutes = require("../routes/getProducts/getDefectsRoutes");
 
 module.exports = routes = [
   insertSignUpRoute,
@@ -40,4 +41,5 @@ module.exports = routes = [
   getRawMaterialAndProductsRoutes,
   getSeriesProduct,
   getUserRoutes,
+  getDefectsRoutes,
 ];
