@@ -1,12 +1,12 @@
-"use client";
-import classes from "@/styles/ProductIds.module.css";
+import styles from "@/styles/page.module.css";
+import PageTemplate from "@/components/PageTemplate";
 
-const product = () => {
+import ProductFromRawMaterial from "@/components/ProductFromRawMaterial";
+
+export default function Page() {
   return (
-    <div className={classes.container}>
-      <div className={classes.box}>Product</div>
-    </div>
+    <PageTemplate>
+      <ProductFromRawMaterial />
+    </PageTemplate>
   );
-};
-
-export default product;
+}

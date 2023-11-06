@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <MetamaskProvider>
           <NotificationContextProvider>
-            <Header />
+            {/* <Header /> */}
             {children}
             <Notifications />
           </NotificationContextProvider>
