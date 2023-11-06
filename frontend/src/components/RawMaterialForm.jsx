@@ -13,17 +13,24 @@ const RawMaterialForm = ({ state, onCancel }) => {
     setMaterial({ ...material, [name]: event.target.value });
   };
   const { postData } = usePostData();
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const bodyData = {
-      name: material.name,
+      materialName: material.name,
       unitPrice: material.unitPrice,
-      quantity: material.quantity,
+      quantityAvailable: material.quantity,
       supplierID: state.wallet,
     };
-    postData(
+    const response = await postData(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/generalassembly/rawmaterial`,
       bodyData
     );
+    if (response.type == "Success") {
+      setMaterial({
+        name: "",
+        unitPrice: "",
+        quantity: "",
+      });
+    }
   };
 
   return (

@@ -46,28 +46,11 @@ function TreeView({ data }) {
   );
 }
 
-const NestedDataRenderer = ({ data }) => {
-  return (
-    <ul>
-      {Object.entries(data).map(([key, value]) => (
-        <li key={key}>
-          {key}:{" "}
-          {Array.isArray(value) || typeof value === "object" ? (
-            <NestedDataRenderer data={value} />
-          ) : (
-            value
-          )}
-        </li>
-      ))}
-    </ul>
-  );
-};
-
 const productIds = () => {
   const seriesid = usePathname().substring(9);
   const { isLoading, data: productIdsdefectsData } = useGetData(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/series/${seriesid}/products`,
-    { response: {} }
+    { response: { subProductIDs: [] } }
   );
   console.log(productIdsdefectsData);
 
@@ -78,7 +61,6 @@ const productIds = () => {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          // <NestedDataRenderer data={productIdsdefectsData.response} />
           <TreeView data={productIdsdefectsData.response.subProductIDs} />
         )}
       </div>

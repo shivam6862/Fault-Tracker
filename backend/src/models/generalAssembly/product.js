@@ -42,18 +42,18 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
   supplierID: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "Supplier",
   },
   materialIDs: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "RawMaterial",
     },
   ],
   subProductIDs: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "Product",
     },
   ],

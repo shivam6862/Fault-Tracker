@@ -24,7 +24,7 @@ const ProductFromRawMaterial = ({ state, onCancel }) => {
   const handleProjectChange = (name) => (event) => {
     setProduct({ ...product, [name]: event.target.value });
   };
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (
       !product.name ||
       !product.description ||
@@ -38,12 +38,13 @@ const ProductFromRawMaterial = ({ state, onCancel }) => {
       !state.wallet
     )
       return;
-    const materialArray = selectedRawMaterials.filter(
-      (material) => material.materialID
-    );
-    const productArray = selectedRawMaterials.filter(
-      (material) => material.productID
-    );
+    const materialArray = selectedRawMaterials
+      .filter((material) => material.materialID)
+      .map((material) => material.materialID);
+
+    const productArray = selectedRawMaterials
+      .filter((material) => material.productID)
+      .map((material) => material.productID);
 
     const bodyData = {
       productName: product.name,
@@ -57,12 +58,26 @@ const ProductFromRawMaterial = ({ state, onCancel }) => {
       machineIdentifier: product.machineIdentifier,
       supplierID: state.wallet,
       materialIDs: materialArray,
-      subProductIds: productArray,
+      subProductIDs: productArray,
     };
-    postData(
+    const response = await postData(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/generalassembly/product`,
       bodyData
     );
+    if (response.type == "Success") {
+      setProduct({
+        name: "",
+        description: "",
+        price: "",
+        quantity: "",
+        size: "",
+        type: "",
+        weight: "",
+        warranty: "",
+        machineIdentifier: "",
+      });
+      setRawMaterials([]);
+    }
   };
   const handleChangeRawMaterial = async (event) => {
     if (!event.target.value) {

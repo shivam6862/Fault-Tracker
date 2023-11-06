@@ -19,7 +19,16 @@ export const usePostData = () => {
           "Content-Type": "application/json",
         },
       });
-      return response;
+      const responseData = await response.json();
+      console.log(responseData);
+      if (response.type != "Success") {
+        NotificationHandler(
+          responseData.type,
+          responseData.message,
+          responseData.type
+        );
+      }
+      return responseData;
     } catch (err) {
       console.log(err);
       NotificationHandler("Error", "Check your connection!", "Error");

@@ -18,7 +18,7 @@ const ProductToRetailer = ({ state, onCancel }) => {
   });
   const { postData } = usePostData();
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (
       !selectedRawMaterials.productID ||
       !selectedRawMaterials.category ||
@@ -28,7 +28,7 @@ const ProductToRetailer = ({ state, onCancel }) => {
       return;
 
     const bodyData = {
-      productId: selectedRawMaterials.productID,
+      productID: selectedRawMaterials.productID,
       productName: selectedRawMaterials.productName,
       description: selectedRawMaterials.productDescription,
       quantityAvailable: selectedRawMaterials.quantityAvailable,
@@ -36,10 +36,20 @@ const ProductToRetailer = ({ state, onCancel }) => {
       category: selectedRawMaterials.category,
       retailerID: state.wallet,
     };
-    postData(
+    const response = await postData(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/retailstore/products`,
       bodyData
     );
+    if (response.type == "Success") {
+      setRawMaterials({
+        productID: "",
+        productName: "",
+        productDescription: "",
+        quantityAvailable: "",
+        price: "",
+        category: "",
+      });
+    }
   };
   const handleChangeRawMaterial = async (event) => {
     if (!event.target.value) {

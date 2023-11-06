@@ -20,7 +20,7 @@ const rawMaterialSchema = new mongoose.Schema({
     required: true,
   },
   supplierID: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "Supplier",
   },
 });

@@ -19,7 +19,7 @@ const Defect = ({ state, onCancel }) => {
   });
   const { postData } = usePostData();
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (
       !selectedRawMaterials.productID ||
       !selectedRawMaterials.defectType ||
@@ -30,13 +30,26 @@ const Defect = ({ state, onCancel }) => {
       return;
 
     const bodyData = {
-      productId: selectedRawMaterials.productID,
+      productID: selectedRawMaterials.productID,
       description: selectedRawMaterials.defectDescription,
       defectType: selectedRawMaterials.defectType,
       reportedBy: selectedRawMaterials.reportedBy,
     };
-    console.log(bodyData);
-    postData(`${process.env.NEXT_PUBLIC_BACKEND_URL}/defects`, bodyData);
+    const response = await postData(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/defects`,
+      bodyData
+    );
+    if (response.type == "Success") {
+      setRawMaterials({
+        productID: "",
+        productName: "",
+        productDescription: "",
+        defectType: "",
+        defectDescription: "",
+        supplierID: "",
+        reportedBy: "",
+      });
+    }
   };
   const handleChangeRawMaterial = async (event) => {
     if (!event.target.value) {

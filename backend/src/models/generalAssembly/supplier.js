@@ -22,6 +22,11 @@ const supplierSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  supplierIds: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 });
 
 const Supplier = mongoose.model("Supplier", supplierSchema);
