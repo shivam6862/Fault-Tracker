@@ -33,27 +33,29 @@ const getSupplierById = async (supplierId) => {
 const populateSubproductsAndMaterials = async (productId) => {
   try {
     const product = await Product.findOne({ productID: productId }).exec();
-    if (!product) {
-      return { subProductIDs: [], materialIDs: [], supplierID: null };
+    // const materialIds = product.materialIDs;
+    //  const subproductIds = product.subProductIDs;
+    const materials = [];
+    const subproducts = [];
+
+    // Populate materials
+    for (const materialId of product.materialIDs) {
+      const material = await getMaterialById(materialId);
+      materials.push(material);
     }
 
-    console.log(product);
-
-    const materialIDs = product.materialIDs;
-    const supplierID = product.supplierID;
-    const subProductIDs = product.subProductIDs;
-
-    for (const subProductID of subProductIDs) {
-      const materialData = await Promise.all(materialIDs.map(getMaterialById));
-      console.log("materialData", materialData);
-      const supplierData = await getSupplierById(supplierID);
-      console.log("supplierData", supplierData);
-      const subProductInfo = await populateSubproductsAndMaterials(
-        subProductID
-      );
-      console.log("subProductInfo", subProductInfo);
+    // Populate subproducts
+    for (const subproductId of product.subProductIDs) {
+      const subproduct = await populateSubproductsAndMaterials(subproductId);
+      subproducts.push(subproduct);
     }
-    return { subProductIDs: subProductIData };
+
+    return {
+      productName: product.productName,
+      materials,
+      subproducts,
+      supplierID: product.supplierID,
+    };
   } catch (err) {
     console.log(err.message);
     throw err;
