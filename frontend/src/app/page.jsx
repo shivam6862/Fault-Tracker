@@ -29,7 +29,7 @@ export default function Home() {
             reportedBy={item.reportedBy}
             status={item.status}
             dateReported={item.dateReported}
-            thumbnail={"/error.jpg"}
+            thumbnail={i > 1 ? "/car.jpg" : "/scooter.jpg"}
             key={i}
           />
         ))}

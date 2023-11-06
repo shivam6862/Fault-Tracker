@@ -7,20 +7,15 @@ const supplierSchema = new mongoose.Schema({
   },
   contactPerson: {
     type: String,
-    required: true,
   },
   contactNumber: {
     type: String,
-    required: true,
   },
   address: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
   },
   supplierIds: {
     type: String,

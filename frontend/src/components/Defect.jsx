@@ -4,9 +4,11 @@ import classes from "@/styles/rawMaterialForm.module.css";
 import Header from "./Header";
 import useSmallSearch from "@/hook/useSmallSearch";
 import { usePostData } from "@/hook/usePostData";
-const Defect = ({ state, onCancel }) => {
-  const { smallSearch } = useSmallSearch();
+import { useMetamask } from "@/utils/useMetamask";
 
+const Defect = ({}) => {
+  const { smallSearch } = useSmallSearch();
+  const { state } = useMetamask();
   const [availabelRawMaterials, setAvailableRawMaterials] = useState([]);
   const [selectedRawMaterials, setRawMaterials] = useState({
     productID: "",
@@ -66,9 +68,8 @@ const Defect = ({ state, onCancel }) => {
   return (
     <>
       <div className={classes["hack-details"]}>
-        <h1>Product Details</h1>
+        <h1>Defect Registration Details</h1>
       </div>
-      {/* <h1 className={classes["project-heading"]}>Project Submission</h1> */}
       <div className={classes["project-container"]}>
         <div className={classes["project-details"]}>
           <div>
@@ -154,7 +155,7 @@ const Defect = ({ state, onCancel }) => {
                 <textarea
                   type="text"
                   id="description"
-                  placeholder="e.g. Asia's largest hackathon"
+                  placeholder="Product Description?"
                   value={selectedRawMaterials.productDescription}
                   disabled
                   rows={3}
@@ -218,9 +219,6 @@ const Defect = ({ state, onCancel }) => {
         </div>
       </div>
       <div className={classes["btn-group"]}>
-        <button className={classes["cancel-btn"]} onClick={onCancel}>
-          Cancel
-        </button>
         <button className={classes["next-btn"]} onClick={onSubmit}>
           Submit
         </button>

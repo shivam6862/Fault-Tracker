@@ -4,9 +4,11 @@ import classes from "@/styles/rawMaterialForm.module.css";
 import Header from "./Header";
 import useSmallSearch from "@/hook/useSmallSearch";
 import { usePostData } from "@/hook/usePostData";
-const ProductToRetailer = ({ state, onCancel }) => {
-  const { smallSearch } = useSmallSearch();
+import { useMetamask } from "@/utils/useMetamask";
 
+const ProductToRetailer = ({}) => {
+  const { smallSearch } = useSmallSearch();
+  const { state } = useMetamask();
   const [availabelRawMaterials, setAvailableRawMaterials] = useState([]);
   const [selectedRawMaterials, setRawMaterials] = useState({
     productID: "",
@@ -66,9 +68,8 @@ const ProductToRetailer = ({ state, onCancel }) => {
   return (
     <>
       <div className={classes["hack-details"]}>
-        <h1>Product Details</h1>
+        <h1>Product To Sell Details</h1>
       </div>
-      {/* <h1 className={classes["project-heading"]}>Project Submission</h1> */}
       <div className={classes["project-container"]}>
         <div className={classes["project-details"]}>
           <div>
@@ -148,7 +149,7 @@ const ProductToRetailer = ({ state, onCancel }) => {
                 <textarea
                   type="text"
                   id="description"
-                  placeholder="e.g. Asia's largest hackathon"
+                  placeholder="Product Description?"
                   value={selectedRawMaterials.productDescription}
                   disabled
                   rows={3}
@@ -206,9 +207,6 @@ const ProductToRetailer = ({ state, onCancel }) => {
         </div>
       </div>
       <div className={classes["btn-group"]}>
-        <button className={classes["cancel-btn"]} onClick={onCancel}>
-          Cancel
-        </button>
         <button className={classes["next-btn"]} onClick={onSubmit}>
           Submit
         </button>

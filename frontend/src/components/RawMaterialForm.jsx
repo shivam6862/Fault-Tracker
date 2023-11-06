@@ -2,13 +2,15 @@
 import { useState } from "react";
 import classes from "@/styles/rawMaterialForm.module.css";
 import { usePostData } from "@/hook/usePostData";
-const RawMaterialForm = ({ state, onCancel }) => {
+import { useMetamask } from "@/utils/useMetamask";
+
+const RawMaterialForm = ({}) => {
   const [material, setMaterial] = useState({
     name: "",
     unitPrice: "",
     quantity: "",
   });
-
+  const { state } = useMetamask();
   const handleProjectChange = (name) => (event) => {
     setMaterial({ ...material, [name]: event.target.value });
   };
@@ -38,7 +40,6 @@ const RawMaterialForm = ({ state, onCancel }) => {
       <div className={classes["hack-details"]}>
         <h1>Raw Material Details</h1>
       </div>
-      {/* <h1 className={classes["project-heading"]}>Project Submission</h1> */}
       <div className={classes["project-container"]}>
         <div className={classes["project-details"]}>
           <div>
@@ -85,9 +86,6 @@ const RawMaterialForm = ({ state, onCancel }) => {
         </div>
       </div>
       <div className={classes["btn-group"]}>
-        <button className={classes["cancel-btn"]} onClick={onCancel}>
-          Cancel
-        </button>
         <button className={classes["next-btn"]} onClick={onSubmit}>
           Submit
         </button>

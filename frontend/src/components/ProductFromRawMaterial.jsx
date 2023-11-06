@@ -4,7 +4,10 @@ import classes from "@/styles/rawMaterialForm.module.css";
 import Header from "./Header";
 import useSmallSearch from "@/hook/useSmallSearch";
 import { usePostData } from "@/hook/usePostData";
-const ProductFromRawMaterial = ({ state, onCancel }) => {
+import { useMetamask } from "@/utils/useMetamask";
+
+const ProductFromRawMaterial = ({}) => {
+  const { state } = useMetamask();
   const { smallSearch } = useSmallSearch();
   const [product, setProduct] = useState({
     name: "",
@@ -16,6 +19,7 @@ const ProductFromRawMaterial = ({ state, onCancel }) => {
     weight: "",
     warranty: "",
     machineIdentifier: "",
+    pattern: "",
   });
   const [availabelRawMaterials, setAvailableRawMaterials] = useState([]);
   const [selectedRawMaterials, setRawMaterials] = useState([]);
@@ -75,6 +79,7 @@ const ProductFromRawMaterial = ({ state, onCancel }) => {
         weight: "",
         warranty: "",
         machineIdentifier: "",
+        pattern: "",
       });
       setRawMaterials([]);
     }
@@ -99,7 +104,6 @@ const ProductFromRawMaterial = ({ state, onCancel }) => {
       <div className={classes["hack-details"]}>
         <h1>Product Details</h1>
       </div>
-      {/* <h1 className={classes["project-heading"]}>Project Submission</h1> */}
       <div className={classes["project-container"]}>
         <div className={classes["project-details"]}>
           <div>
@@ -119,7 +123,7 @@ const ProductFromRawMaterial = ({ state, onCancel }) => {
                 <textarea
                   type="text"
                   id="description"
-                  placeholder="e.g. Asia's largest hackathon"
+                  placeholder="Product Description?"
                   value={product.description}
                   onChange={handleProjectChange("description")}
                   rows={3}
@@ -271,9 +275,6 @@ const ProductFromRawMaterial = ({ state, onCancel }) => {
         </div>
       </div>
       <div className={classes["btn-group"]}>
-        <button className={classes["cancel-btn"]} onClick={onCancel}>
-          Cancel
-        </button>
         <button className={classes["next-btn"]} onClick={onSubmit}>
           Submit
         </button>
