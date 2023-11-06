@@ -1,8 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
-import { Html, OrbitControls, useTexture, Backdrop } from "@react-three/drei";
-import { Flex, Box as FlexBox } from "@react-three/flex";
+import { Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { TextureLoader, Vector3 } from "three";
 import classes from "@/styles/three.module.css";
@@ -11,20 +10,9 @@ import ProductFromRawMaterial from "@/components/ProductFromRawMaterial";
 import { useMetamask } from "@/utils/useMetamask";
 import ProductToRetailer from "@/components/ProductToSell";
 import Defect from "@/components/Defect";
-import { useEffect } from "react";
 
-const boxSize = [7, 7, 7];
+const boxSize = [6, 6, 6];
 
-function Scene() {
-  const { scene } = useThree();
-  const texture = useTexture("/Untitled.png"); // replace with your image path
-
-  useEffect(() => {
-    scene.background = texture;
-  }, [scene, texture]);
-
-  // Your scene objects here
-}
 function Box({ state }) {
   const meshRef = useRef();
   const [size, set] = useState(0.5);
@@ -168,15 +156,15 @@ function Box({ state }) {
 
   // Apply textures to each face of the cube
   const materials = [
-    new THREE.MeshBasicMaterial({ color: "green" }),
+    new THREE.MeshBasicMaterial({ color: "red" }),
     new THREE.MeshBasicMaterial({ color: "blue" }),
     new THREE.MeshBasicMaterial({ color: "green" }),
-    new THREE.MeshBasicMaterial({ color: "#e8b059" }),
+    new THREE.MeshBasicMaterial({ color: "yellow" }),
     new THREE.MeshBasicMaterial({ color: "purple" }),
     new THREE.MeshBasicMaterial({ color: "orange" }),
   ];
   return (
-    <mesh ref={meshRef} castShadow receiveShadow scale={1}>
+    <mesh ref={meshRef}>
       <boxGeometry args={boxSize} />
       {/* <meshStandardMaterial /> */}
       {materials.map((material, index) => (
@@ -186,132 +174,118 @@ function Box({ state }) {
           key={index}
         />
       ))}
-      <Flex dir="column">
-        <Html
-          scale={2}
-          occlude
-          distanceFactor={1.5}
-          position={[0, 0, boxSize[2] / 2 + 0.01]}
-          transform
-          color="#000"
-        >
-          <div style={{ color: "yellow" }} className={classes["html-content"]}>
-            <h1>Choose what you are saving?</h1>
-            <form className={classes.form}>
-              <label>
-                <input
-                  type="radio"
-                  value="raw-material"
-                  checked={selectedOption === "raw-material"}
-                  onChange={handleOptionChange}
-                />
-                Raw Material
-              </label>
-              <br />
-              <label>
-                <input
-                  type="radio"
-                  value="product"
-                  checked={selectedOption === "product"}
-                  onChange={handleOptionChange}
-                />
-                Product from Raw Materials
-              </label>
+      <Html
+        scale={2}
+        occlude
+        distanceFactor={1.5}
+        position={[0, 0, boxSize[2] / 2 + 0.01]}
+        transform
+      >
+        <div style={{ color: "yellow" }} className={classes["html-content"]}>
+          <h1>Choose what you are saving?</h1>
+          <form className={classes.form}>
+            <label>
+              <input
+                type="radio"
+                value="raw-material"
+                checked={selectedOption === "raw-material"}
+                onChange={handleOptionChange}
+              />
+              Raw Material
+            </label>
+            <br />
+            <label>
+              <input
+                type="radio"
+                value="product"
+                checked={selectedOption === "product"}
+                onChange={handleOptionChange}
+              />
+              Product from Raw Materials
+            </label>
+            <br />
+            <label>
+              <input
+                type="radio"
+                value="sell"
+                checked={selectedOption === "sell"}
+                onChange={handleOptionChange}
+              />
+              Product to sell
+            </label>
+            <br />
+            <label>
+              <input
+                type="radio"
+                value="defect"
+                checked={selectedOption === "defect"}
+                onChange={handleOptionChange}
+              />
+              Defect in Product
+            </label>
+          </form>
+        </div>
+      </Html>
+      <Html
+        // scale={1}
+        occlude
+        distanceFactor={1}
+        position={[-(boxSize[0] / 2 + 0.01), 0, 0]}
+        transform
+        rotation={[0, (Math.PI * 3) / 2, 0]}
+      >
+        <RawMaterialForm state={state} onCancel={resetRotation} />
+      </Html>
+      <Html
+        // scale={[0.8, 1.3, 1]}
+        occlude
+        distanceFactor={1}
+        position={[boxSize[2] / 2 + 0.01, 0, 0]}
+        transform
+        rotation={[0, Math.PI / 2, 0]}
+        style={{
+          // maxHeight: "1200px",
+          width: "100%",
+          // display: "flex",
+          // alignItems: "center",
+          // justifyContent: "center",
+          overflow: "scroll",
+        }}
+      >
+        <ProductFromRawMaterial state={state} onCancel={resetRotation} />
+      </Html>
 
-              <br />
-              <label>
-                <input
-                  type="radio"
-                  value="defect"
-                  checked={selectedOption === "defect"}
-                  onChange={handleOptionChange}
-                />
-                Defect in Product
-              </label>
-              <br />
-              <label>
-                <input
-                  type="radio"
-                  value="sell"
-                  checked={selectedOption === "sell"}
-                  onChange={handleOptionChange}
-                />
-                Product to sell
-              </label>
-            </form>
-          </div>
-        </Html>
-
-        <Html
-          scale={[1.5, 1.5, 1]}
-          occlude
-          distanceFactor={1}
-          position={[-(boxSize[0] / 2 + 0.01), 0, 0]}
-          transform
-          rotation={[0, (Math.PI * 3) / 2, 0]}
-          style={{
-            // maxHeight: "1200px",
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            // alignItems: "center",
-            // justifyContent: "center",
-            overflow: "scroll",
-          }}
-        >
-          <RawMaterialForm state={state} onCancel={resetRotation} />
-        </Html>
-        <Html
-          scale={[1.2, 1.2, 1]}
-          occlude
-          distanceFactor={1}
-          position={[boxSize[2] / 2 + 0.01, 0, 0]}
-          transform
-          rotation={[0, Math.PI / 2, 0]}
-          style={{
-            // maxHeight: "1200px",
-            width: "100%",
-            // display: "flex",
-            // alignItems: "center",
-            // justifyContent: "center",
-            overflow: "scroll",
-          }}
-        >
-          <ProductFromRawMaterial state={state} onCancel={resetRotation} />
-        </Html>
-
-        <Html
-          scale={[1.3, 1.3, 1]}
-          occlude
-          distanceFactor={1}
-          position={[0, boxSize[1] / 2 + 0.01, 0]}
-          transform
-          rotation={[(Math.PI * 3) / 2, 0, 0]}
-        >
-          {/* <ProductToRetailer state={state} onCancel={resetRotation} /> */}
-          <Defect state={state} onCancel={resetRotation} />
-        </Html>
-        <Html
-          scale={[1.3, 1.3, 1.3]}
-          occlude
-          distanceFactor={1}
-          position={[0, -(boxSize[1] / 2 + 0.01), 0]}
-          transform
-          rotation={[Math.PI / 2, 0, 0]}
-        >
-          <ProductToRetailer state={state} onCancel={resetRotation} />
-        </Html>
-        <Html
-          scale={[1.3, 1.3, 1.3]}
-          occlude
-          distanceFactor={1.5}
-          position={[0, 0, -(boxSize[2] / 2 + 0.01)]}
-          transform
-          rotation={[0, Math.PI, 0]}
-        >
-          <h1>back face</h1>
-        </Html>
-      </Flex>
+      <Html
+        scale={1.5}
+        occlude
+        distanceFactor={1}
+        position={[0, boxSize[1] / 2 + 0.01, 0]}
+        transform
+        rotation={[(Math.PI * 3) / 2, 0, 0]}
+      >
+        {/* <ProductToRetailer state={state} onCancel={resetRotation} /> */}
+        <Defect state={state} onCancel={resetRotation} />
+      </Html>
+      <Html
+        scale={1}
+        occlude
+        distanceFactor={1}
+        position={[0, -(boxSize[1] / 2 + 0.01), 0]}
+        transform
+        rotation={[Math.PI / 2, 0, 0]}
+      >
+        <ProductToRetailer state={state} onCancel={resetRotation} />
+      </Html>
+      <Html
+        scale={[0.5, 0.5, 0.5]}
+        occlude
+        distanceFactor={1.5}
+        position={[0, 0, -(boxSize[2] / 2 + 0.01)]}
+        transform
+        rotation={[0, Math.PI, 0]}
+      >
+        <h1>back face</h1>
+      </Html>
     </mesh>
   );
 }
@@ -319,26 +293,7 @@ function Box({ state }) {
 export default function App() {
   const { state } = useMetamask();
   return (
-    <Canvas
-      camera={{ position: [0, 0, 20], fov: 25, far: 1000 }}
-      style={{ width: "100%", height: "100%" }}
-      gl={{
-        powerPreference: "high-performance",
-        alpha: false,
-        antialias: false,
-        stencil: false,
-        depth: false,
-      }}
-    >
-      {/* <Scene /> */}
-      <Backdrop
-        castShadow
-        floor={2}
-        position={[0, -0.5, -3]}
-        scale={[50, 10, 4]}
-      >
-        <meshStandardMaterial color="#353540" envMapIntensity={0.1} />
-      </Backdrop>
+    <Canvas camera={{ position: [0, 0, 20], fov: 25 }}>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <pointLight position={[-10, -10, -10]} />

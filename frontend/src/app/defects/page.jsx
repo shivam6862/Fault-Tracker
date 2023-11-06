@@ -1,10 +1,10 @@
 "use client";
 import classes from "@/styles/Defects.module.css";
 import DefectsItem from "@/components/DefectsItem";
-import { useProtectedGetData } from "@/hook/useProtectedGetData";
+import { useGetData } from "@/hook/useGetData";
 
 const defects = () => {
-  const { isLoading, data: defectsData } = useProtectedGetData(
+  const { isLoading, data: defectsData } = useGetData(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/defects`,
     { response: [] }
   );

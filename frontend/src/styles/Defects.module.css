@@ -1,6 +1,7 @@
 .container {
   display: flex;
   width: -webkit-fill-available;
+  padding: 2rem var(--b-pad);
 }
 .box {
   display: flex;

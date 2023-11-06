@@ -6,10 +6,16 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-primary);
-  max-width: 1800px;
-  margin: auto;
 }
+
+body {
+  background: #202020;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
 a {
   display: block;
   text-decoration: none;
@@ -21,9 +27,9 @@ a {
 :root {
   --primary-color: #0000ff;
   --black-color: #000000;
-  --white-color: #ffffff;
+  --white-color: #f0f0f0;
 
-  --bg-primary: #010314;
+  --bg-primary: #fff;
   --paragraph: #77798f;
 
   --b-pad: 4rem;
@@ -48,4 +54,62 @@ a {
   );
   --border-buttom-color: #4467ff;
   --box-shadow-color: #74f;
+}
+
+.spin {
+  position: relative;
+}
+.spin {
+  animation: 1.5s linear infinite spinner;
+  animation-play-state: inherit;
+  border: solid 5px #cfd0d1;
+  border-bottom-color: #1c87c9;
+  border-radius: 50%;
+  content: "";
+  height: 30px;
+  width: 30px;
+  margin: 0 2rem;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Wallet */
+
+.wallet-btn,
+.install-link {
+  border: none;
+  padding: 10px 16px;
+  background-color: #e8b059;
+  border-radius: 4px;
+  color: #202020;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* .wallet-details {
+  margin-bottom: 1rem;
+} */
+.wallet-details > h3,
+.wallet-details > p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+.wallet-details > p > span,
+.wallet-details > h3 > span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+.wallet-details > h3 {
+  white-space: nowrap;
+  margin-bottom: 0.5rem;
 }

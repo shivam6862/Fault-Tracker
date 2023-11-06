@@ -13,11 +13,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.88.11",
+    "@react-three/fiber": "^8.15.9",
+    "@react-three/flex": "^1.0.1",
     "cookies-next": "^4.0.0",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
+    "three": "^0.158.0",
     "uuid": "^9.0.1"
   }
 }
