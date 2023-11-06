@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "@/styles/header.module.css";
 import Wallet from "./wallet";
 import { useMetamask } from "@/utils/useMetamask";
 import { useListen } from "@/utils/useListen";
+import Link from "next/link";
 
 const Header = () => {
   const { dispatch } = useMetamask();
@@ -28,9 +29,24 @@ const Header = () => {
       dispatch({ type: "pageLoaded", isMetamaskInstalled, wallet, balance });
     }
   }, []);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
-    <div className={classes.container}>
+    <div className={`${classes.container} ${isScrolled ? classes.hide : ""}`}>
       <div className={classes.box}>Header</div>
+      <div className={classes.links}>
+        <Link href="/defects">Defects</Link>
+      </div>
       <Wallet />
     </div>
   );

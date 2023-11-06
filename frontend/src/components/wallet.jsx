@@ -56,7 +56,7 @@ export default function Wallet() {
 
   return (
     <div>
-      <div style={{ color: "white" }}>
+      <div style={{ color: "white", display: "flex", gap: "2rem" }}>
         {/* {status == "loading" && <div className={"spin"}></div>} */}
         {wallet && balance && (
           <div className="wallet-details">
@@ -66,12 +66,6 @@ export default function Wallet() {
                 {wallet.slice(0, 4)}....{wallet.slice(-4)}
               </span>
             </h3>
-            <p>
-              Balance:{" "}
-              <span>
-                {(parseInt(balance) / 1000000000000000000).toFixed(4)} ETH
-              </span>
-            </p>
           </div>
         )}
 

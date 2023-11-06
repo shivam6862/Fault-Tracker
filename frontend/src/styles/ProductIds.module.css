@@ -1,8 +1,37 @@
 .container {
   display: flex;
+  padding: 2rem var(--b-pad);
 }
 .box {
   display: flex;
   flex-direction: column;
   color: var(--white-color);
+}
+
+.root-list,
+.child-list {
+  list-style: none;
+}
+.show-btn {
+  background-color: #e8b059;
+  color: #202020;
+  border: 1px solid var(--black-color);
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 1rem;
+  margin-left: 0.7rem;
+}
+.last-btn {
+  border: none;
+  color: var(--white-color);
+  background-color: #202020;
+  padding: 1rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-left: 0.7rem;
+  cursor: default;
 }

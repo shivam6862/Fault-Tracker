@@ -9,7 +9,11 @@ body {
 }
 
 body {
-  background: #000;
+  background: #202020;
+}
+canvas {
+  width: 100%;
+  height: 100%;
 }
 
 a {
@@ -23,7 +27,7 @@ a {
 :root {
   --primary-color: #0000ff;
   --black-color: #000000;
-  --white-color: #ffffff;
+  --white-color: #f0f0f0;
 
   --bg-primary: #fff;
   --paragraph: #77798f;
@@ -75,4 +79,37 @@ a {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Wallet */
+
+.wallet-btn,
+.install-link {
+  border: none;
+  padding: 10px 16px;
+  background-color: #e8b059;
+  border-radius: 4px;
+  color: #202020;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* .wallet-details {
+  margin-bottom: 1rem;
+} */
+.wallet-details > h3,
+.wallet-details > p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+.wallet-details > p > span,
+.wallet-details > h3 > span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+.wallet-details > h3 {
+  white-space: nowrap;
+  margin-bottom: 0.5rem;
 }

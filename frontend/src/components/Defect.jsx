@@ -14,6 +14,7 @@ const Defect = ({ state, onCancel }) => {
     productDescription: "",
     defectType: "",
     defectDescription: "",
+    supplierID: "",
     reportedBy: "",
   });
   const { postData } = usePostData();
@@ -35,7 +36,7 @@ const Defect = ({ state, onCancel }) => {
       reportedBy: selectedRawMaterials.reportedBy,
     };
     console.log(bodyData);
-    // postData(`${process.env.NEXT_PUBLIC_BACKEND_URL}/defects`, bodyData);
+    postData(`${process.env.NEXT_PUBLIC_BACKEND_URL}/defects`, bodyData);
   };
   const handleChangeRawMaterial = async (event) => {
     if (!event.target.value) {
@@ -115,6 +116,7 @@ const Defect = ({ state, onCancel }) => {
                           productID: material.productID,
                           productName: material.productName,
                           productDescription: material.productDescription,
+                          supplierID: material.supplierID,
                         });
                         setAvailableRawMaterials([]);
                       }}
