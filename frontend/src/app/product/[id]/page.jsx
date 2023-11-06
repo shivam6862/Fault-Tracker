@@ -3,6 +3,8 @@ import classes from "@/styles/ProductIds.module.css";
 import { usePathname } from "next/navigation";
 import { useGetData } from "@/hook/useGetData";
 import { useState } from "react";
+import PageTemplate from "@/components/PageTemplate";
+import { FaUserCircle } from "react-icons/fa";
 
 function TreeNode({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,14 +22,18 @@ function TreeNode({ data }) {
         onClick={handleClick}
       >
         {data.productName || data.materialName}
+        <span className={classes["supplier-id"]}>
+          <FaUserCircle size={30} />
+          {data.supplierID}
+        </span>
       </button>
-      {isOpen && data.subProductIDs && (
+      {isOpen && data.subproducts && (
         <ul className={classes["child-list"]}>
-          {data.subProductIDs.map((subProduct) => (
+          {data.subproducts.map((subProduct) => (
             <TreeNode key={subProduct._id} data={subProduct} />
           ))}
-          {data.materialIDs &&
-            data.materialIDs.map((material) => (
+          {data.materials &&
+            data.materials.map((material) => (
               <TreeNode key={material._id} data={material} />
             ))}
         </ul>
@@ -39,9 +45,7 @@ function TreeNode({ data }) {
 function TreeView({ data }) {
   return (
     <ul className={classes["root-list"]}>
-      {data.map((item) => (
-        <TreeNode key={item._id} data={item} />
-      ))}
+      <TreeNode data={data} />
     </ul>
   );
 }
@@ -55,16 +59,21 @@ const productIds = () => {
   console.log(productIdsdefectsData);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.box}>
-        {!isLoading && productIdsdefectsData.response.productName}
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <TreeView data={productIdsdefectsData.response.subProductIDs} />
-        )}
+    <PageTemplate>
+      <div className={classes.container}>
+        <div className={classes.box}>
+          <p style={{ marginBottom: "1rem" }}>
+            {!isLoading && productIdsdefectsData.response.productName}
+          </p>
+          <br />
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <TreeView data={productIdsdefectsData.response} />
+          )}
+        </div>
       </div>
-    </div>
+    </PageTemplate>
   );
 };
 
