@@ -77,18 +77,18 @@ The project integrates Web3 MetaMask, a widely used Ethereum wallet browser exte
 
 ### Home Page
 
-![signIn Logo](./PHOTO/home.png)
+![Home Page](./PHOTO/home.png)
 
 ### Defect Form Page
 
-![home Logo](./PHOTO/defect_form.png)
+![Defect Form Page](./PHOTO/defect_form.png)
 
 ### Product Form Page
 
-![Profile Logo](./PHOTO/product_form.png)
+![Product Form Page](./PHOTO/product_form.png)
 
 ### Product Defect Page
 
-![chat Logo](./PHOTO/product_defect.png)
+![Product Defect Page](./PHOTO/product_defect.png)
 
 Feel free to explore the codebase, contribute to the project, and enhance the Fault-Tracker system according to your requirements. If you have any questions or need further assistance, please reach out to the project maintainers. Happy coding!
